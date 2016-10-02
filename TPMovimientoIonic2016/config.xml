@@ -21,4 +21,5 @@
     </feature>
     <plugin name="cordova-plugin-device-motion" spec="~1.2.2" />
     <plugin name="cordova-plugin-nativeaudio" spec="https://github.com/SidneyS/cordova-plugin-nativeaudio.git" />
+    <plugin name="cordova-plugin-media" spec="~2.4.0" />
 </widget>

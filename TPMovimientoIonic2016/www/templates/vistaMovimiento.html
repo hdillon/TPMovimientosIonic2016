@@ -1,5 +1,14 @@
-<ion-view view-title="Search">
+<ion-view view-title="Grabadora">
   <ion-content>
-    <h1>Movimiento</h1>
+    <form >
+      <div class="list">
+        <label class="item">
+          <button  class="button button-block button-positive" on-long-press="itemOnLongPress(arriba)" on-touch-end="itemOnTouchEnd(arriba)">Grabar Sonido Arriba</button>
+        </label>
+        <label class="item">
+          <button  class="button button-block button-assertive" on-long-press="itemOnLongPress(abajo)" on-touch-end="itemOnTouchEnd(abajo)">Grabar Sonido Abajo</button>
+        </label>
+      </div>
+    </form>
   </ion-content>
 </ion-view>

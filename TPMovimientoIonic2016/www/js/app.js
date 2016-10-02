@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -35,7 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
   })
 
   .state('app.movimiento', {
-      url: '/movimiento',
+      url: '/movimiento/:nombre:apellido',
       views: {
         'menuContent': {
           templateUrl: 'templates/vistaMovimiento.html',

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope) {
+.controller('AppCtrl', function($scope, $state) {
   $scope.username = "";
   $scope.mostrarLogin = true;
   $scope.mostrarLogout = false;
@@ -9,6 +9,8 @@ angular.module('starter.controllers', [])
     if(username != ""){
       $scope.mostrarLogin = false;
       $scope.mostrarLogout = true;
+      var usuario = { "nombre": username, "apellido" : "dillon"};
+      $state.go('app.movimiento', usuario);
     }else{
       alert("Por favor ingrese su nombre");
     }    
@@ -27,8 +29,18 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('MovimientoCtrl', function($scope) {
- 
+.controller('MovimientoCtrl', function($scope, $state, $stateParams) {
+  $scope.usuario = angular.fromJson($stateParams);
+  /*alert($scope.usuario.nombre);
+  alert($scope.usuario.apellido);*/
+  $scope.itemOnLongPress = function(id) {
+    console.log('Long press');
+  }
+
+  $scope.itemOnTouchEnd = function(id) {
+    console.log('Touch end');
+  }
+
 })
 
 
