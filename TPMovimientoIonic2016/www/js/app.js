@@ -33,9 +33,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
       }
     }
   })
+  .state('app.grabadora', {
+      url: '/grabadora',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/vistaGrabadora.html',
+          controller: 'GrabadoraCtrl'
+        }
+      }
+    })
 
   .state('app.movimiento', {
-      url: '/movimiento/:nombre:apellido',
+      url: '/movimiento',
       views: {
         'menuContent': {
           templateUrl: 'templates/vistaMovimiento.html',

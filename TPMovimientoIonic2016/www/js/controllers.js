@@ -9,8 +9,9 @@ angular.module('starter.controllers', [])
     if(username != ""){
       $scope.mostrarLogin = false;
       $scope.mostrarLogout = true;
-      var usuario = { "nombre": username, "apellido" : "dillon"};
-      $state.go('app.movimiento', usuario);
+      //var usuario = { "nombre": username, "apellido" : "dillon"};
+      //$state.go('app.movimiento', usuario);
+      $state.go('app.movimiento');
     }else{
       alert("Por favor ingrese su nombre");
     }    
@@ -28,8 +29,58 @@ angular.module('starter.controllers', [])
  
 })
 
+.controller('MovimientoCtrl', function($scope, $cordovaMedia, $timeout, $cordovaDeviceMotion) {
 
-.controller('MovimientoCtrl', function($scope, $state, $stateParams, $cordovaMedia, $ionicPlatform) {
+  $scope.X;
+  $scope.Y;
+  $scope.Z;
+  $scope.TIMESTAMP;
+
+  /*document.addEventListener("deviceready", function () {
+
+    $cordovaDeviceMotion.getCurrentAcceleration().then(function(result) {
+      $scope.X = result.x;
+      $scope.Y = result.y;
+      $scope.Z = result.z;
+      $scope.TIMESTAMP = result.timestamp;
+
+      alert("X = " + $scope.X + " Y = " + $scope.Y + " Z = " + $scope.Z);
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  }, false);*/
+
+
+  // watch Acceleration
+  
+
+  document.addEventListener("deviceready", function () {
+    var options = { frequency: 1000 };
+
+    var watch = $cordovaDeviceMotion.watchAcceleration(options);
+    watch.then(
+      null,
+      function(error) {
+      // An error occurred
+      },
+      function(result) {
+        $scope.X = parseInt(result.x);
+        $scope.Y = parseInt(result.y);
+        $scope.Z = parseInt(result.z);
+        $scope.TIMESTAMP = result.timestamp;
+        alert("X = " + $scope.X + " Y = " + $scope.Y + " Z = " + $scope.Z);
+    });
+
+
+   
+
+  });
+
+})
+
+
+.controller('GrabadoraCtrl', function($scope, $state, $stateParams, $cordovaMedia) {
   $scope.usuario = angular.fromJson($stateParams);
   /*alert($scope.usuario.nombre);
   alert($scope.usuario.apellido);*/
