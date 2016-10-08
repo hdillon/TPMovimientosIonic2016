@@ -26,6 +26,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
 
   .state('app.login', {
     url: '/login',
+    cache: true,
     views: {
       'menuContent': {
         templateUrl: 'templates/vistaLogin.html',
@@ -35,6 +36,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
   })
   .state('app.grabadora', {
       url: '/grabadora',
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: 'templates/vistaGrabadora.html',
@@ -45,6 +47,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
 
   .state('app.movimiento', {
       url: '/movimiento',
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: 'templates/vistaMovimiento.html',

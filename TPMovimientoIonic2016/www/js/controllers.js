@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
   $scope.mostrarLogin = true;
   $scope.mostrarLogout = false;
 
-  $scope.loguear=function(username){
+  /*$scope.loguear=function(username){
     if(username != ""){
       $scope.mostrarLogin = false;
       $scope.mostrarLogout = true;
@@ -21,16 +21,86 @@ angular.module('starter.controllers', [])
       $scope.username = "";
       $scope.mostrarLogout = false;
       $scope.mostrarLogin = true;
-  }
+  }*/
 
 })
 
-.controller('LoginCtrl', function($scope) {
+.controller('LoginCtrl', function($scope, $timeout) {
+    $scope.loginData={};
+    $scope.loginData.username = "dillonhoraciodavid@gmail.com";
+    $scope.loginData.password = "34551422";
+    $scope.mostrarLogin = true;
+    $scope.mostrarLogOut = false;
+    $scope.mostrarVerificar = false;
+
+    $scope.loguear = function() {
+      firebase.auth().signInWithEmailAndPassword($scope.loginData.username, $scope.loginData.password).catch(function(error) {
+
+      console.info("error", error);
  
+      }).then(function(respuesta){
+        $timeout(function(){
+          //console.info("RESP", firebase.auth().currentUser);
+          /*console.info("Esta Autenticado", respuesta.emailVerified);
+          console.info("respuesta", respuesta);*/
+          if(firebase.auth().currentUser != null){
+            $scope.mostrarLogin = false;
+            $scope.mostrarLogOut = true;    
+          }
+          
+        });
+        
+      });
+    }
+
+//emailVerified: false
+
+    $scope.desloguear = function() {
+      
+      firebase.auth().signOut().then(function(){
+        $timeout(function(){
+          console.info("outLogin", firebase.auth().currentUser);
+          $scope.mostrarLogin = true;
+          $scope.mostrarLogOut = false;  
+        });
+        
+      });
+    };
+
+    $scope.resetearPass = function() {
+     firebase.auth().sendPasswordResetEmail($scope.loginData.username)
+     .then(function(respuesta){
+        console.info("respuestaReset", respuesta);
+     }).catch(function(error){
+      console.info("Se ropio el reset", error);
+
+     });
+     
+    };
+    
+    $scope.verificarEmail = function() {
+      alert("asd");
+     
+    };  
+    
 })
 
-.controller('MovimientoCtrl', function($scope, $cordovaMedia, $timeout, $cordovaDeviceMotion) {
+.controller('MovimientoCtrl', function($scope, $cordovaMedia, $timeout, $cordovaDeviceMotion, $state , $ionicPopup) {
 
+  $scope.showPopup = function() {
+      var alertPopup = $ionicPopup.alert({
+         title: "NO SE HA LOGUEADO!",
+         okText: "ACEPTAR"
+      });
+      alertPopup.then(function(res) {
+        $state.go('app.login');
+      });
+   };
+
+  if(firebase.auth().currentUser == null){
+    $scope.showPopup();
+  }
+  //alert("Se cargó MovimientoCtrl");
   $scope.X;
   $scope.Y;
   $scope.Z;
