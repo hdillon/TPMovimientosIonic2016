@@ -38,7 +38,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
       views: {
         'menuContent': {
           templateUrl: 'templates/vistaGrabadora.html',
-          controller: 'GrabadoraCtrl'
+          controller: 'MovimientoCtrl'
         }
       }
     })

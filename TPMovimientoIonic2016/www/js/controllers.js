@@ -36,56 +36,8 @@ angular.module('starter.controllers', [])
   $scope.Z;
   $scope.TIMESTAMP;
 
-  /*document.addEventListener("deviceready", function () {
-
-    $cordovaDeviceMotion.getCurrentAcceleration().then(function(result) {
-      $scope.X = result.x;
-      $scope.Y = result.y;
-      $scope.Z = result.z;
-      $scope.TIMESTAMP = result.timestamp;
-
-      alert("X = " + $scope.X + " Y = " + $scope.Y + " Z = " + $scope.Z);
-    }, function(err) {
-      // An error occurred. Show a message to the user
-    });
-
-  }, false);*/
-
-
-  // watch Acceleration
-  
-
-  document.addEventListener("deviceready", function () {
-    var options = { frequency: 1000 };
-
-    var watch = $cordovaDeviceMotion.watchAcceleration(options);
-    watch.then(
-      null,
-      function(error) {
-      // An error occurred
-      },
-      function(result) {
-        $scope.X = parseInt(result.x);
-        $scope.Y = parseInt(result.y);
-        $scope.Z = parseInt(result.z);
-        $scope.TIMESTAMP = result.timestamp;
-        alert("X = " + $scope.X + " Y = " + $scope.Y + " Z = " + $scope.Z);
-    });
-
-
-   
-
-  });
-
-})
-
-
-.controller('GrabadoraCtrl', function($scope, $state, $stateParams, $cordovaMedia) {
-  $scope.usuario = angular.fromJson($stateParams);
-  /*alert($scope.usuario.nombre);
-  alert($scope.usuario.apellido);*/
+/************GRABADORA DE SONIDO********************/
   $scope.itemOnLongPress = function(idSonido) {
-    console.log("adasdasdas");
     switch(idSonido){
       case 'arriba':
       try{
@@ -120,6 +72,24 @@ angular.module('starter.controllers', [])
         $scope._src = "derecha.mp3";
         $scope.mediaDerecha = $cordovaMedia.newMedia($scope._src);
         $scope.mediaDerecha.startRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+       case 'acostadoArriba':
+      try{
+        $scope._src = "acostadoarriba.mp3";
+        $scope.mediaBocaArriba = $cordovaMedia.newMedia($scope._src);
+        $scope.mediaBocaArriba.startRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'acostadoAbajo':
+      try{
+        $scope._src = "acostadoabajo.mp3";
+        $scope.mediaBocaAbajo = $cordovaMedia.newMedia($scope._src);
+        $scope.mediaBocaAbajo.startRecord();
       }catch(error){
         console.log(error);
       }
@@ -162,11 +132,274 @@ angular.module('starter.controllers', [])
         console.log(error);
       }
       break;
+      case 'acostadoArriba':
+      try{
+        $scope.mediaBocaArriba.stopRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'acostadoAbajo':
+      try{
+        $scope.mediaBocaAbajo.stopRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
       default:
       break;
     } 
   }
 
+/* TEST SONIDOS
+  $scope.reproducir = function(idSonido){
+    switch(idSonido){
+      case 'arriba':
+      try{
+        console.log("reproducir arriba");
+        $scope.mediaArriba.play(); // Android
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'abajo':
+      try{
+        $scope.mediaAbajo.play(); // Android
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'izquierda':
+      try{
+        $scope.mediaIzquierda.play(); // Android
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'derecha':
+      try{
+        $scope.mediaDerecha.play(); // Android
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      default:
+      break;
+    } 
+  }
+*/
+
+/***************FIN GRABADORA***************************/
+
+  /*document.addEventListener("deviceready", function () {
+
+    $cordovaDeviceMotion.getCurrentAcceleration().then(function(result) {
+      $scope.X = result.x;
+      $scope.Y = result.y;
+      $scope.Z = result.z;
+      $scope.TIMESTAMP = result.timestamp;
+
+      alert("X = " + $scope.X + " Y = " + $scope.Y + " Z = " + $scope.Z);
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  }, false);*/
+
+
+  // watch Acceleration
+  
+
+  document.addEventListener("deviceready", function () {
+    var options = { frequency: 1000 };
+
+    var watch = $cordovaDeviceMotion.watchAcceleration(options);
+    watch.then(
+      null,
+      function(error) {
+      // An error occurred
+      },
+      function(result) {
+        $scope.X = parseInt(result.x);
+        $scope.Y = parseInt(result.y);
+        $scope.Z = parseInt(result.z);
+        $scope.TIMESTAMP = result.timestamp;
+        //alert("X = " + $scope.X + " Y = " + $scope.Y + " Z = " + $scope.Z);
+
+        if($scope.X > 4){
+          try{
+            $scope.mediaIzquierda.play(); // Android
+            }catch(error){
+              console.log(error);
+            }
+        }
+
+        if($scope.X < -4){
+          try{
+          $scope.mediaDerecha.play(); // Android
+          }catch(error){
+            console.log(error);
+          }
+        }
+
+        if($scope.Z == 9){
+          try{
+          $scope.mediaBocaArriba.play(); // Android
+          }catch(error){
+            console.log(error);
+          }
+        }
+
+        if($scope.Z == -9){
+          try{
+          $scope.mediaBocaAbajo.play(); // Android
+          }catch(error){
+            console.log(error);
+          }
+        }
+
+        if($scope.Y < -6){
+          try{
+          $scope.mediaAbajo.play(); // Android
+          }catch(error){
+            console.log(error);
+          }
+        }
+
+        if($scope.Y > 6){
+          try{
+          $scope.mediaArriba.play(); // Android
+          }catch(error){
+            console.log(error);
+          }
+        }
+
+    });
+  });
+
+
+
+})
+
+
+.controller('GrabadoraCtrl', function($scope, $state, $stateParams, $cordovaMedia) {
+  $scope.usuario = angular.fromJson($stateParams);
+  /*alert($scope.usuario.nombre);
+  alert($scope.usuario.apellido);*/
+ /* $scope.itemOnLongPress = function(idSonido) {
+    switch(idSonido){
+      case 'arriba':
+      try{
+        console.log("entro arriba");
+        $scope._src = "arriba.mp3";
+        $scope.mediaArriba = $cordovaMedia.newMedia($scope._src);
+        $scope.mediaArriba.startRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'abajo':
+      try{
+        $scope._src = "abajo.mp3";
+        $scope.mediaAbajo = $cordovaMedia.newMedia($scope._src);
+        $scope.mediaAbajo.startRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'izquierda':
+      try{
+        $scope._src = "izquierda.mp3";
+        $scope.mediaIzquierda = $cordovaMedia.newMedia($scope._src);
+        $scope.mediaIzquierda.startRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'derecha':
+      try{
+        $scope._src = "derecha.mp3";
+        $scope.mediaDerecha = $cordovaMedia.newMedia($scope._src);
+        $scope.mediaDerecha.startRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'acostadoArriba':
+      try{
+        $scope._src = "acostadoarriba.mp3";
+        $scope.mediaBocaArriba = $cordovaMedia.newMedia($scope._src);
+        $scope.mediaBocaArriba.startRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'acostadoAbajo':
+      try{
+        $scope._src = "acostadoabajo.mp3";
+        $scope.mediaBocaAbajo = $cordovaMedia.newMedia($scope._src);
+        $scope.mediaBocaAbajo.startRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      default:
+      break;
+    }
+  
+
+  }
+
+  $scope.itemOnTouchEnd = function(idSonido) {
+    switch(idSonido){
+      case 'arriba':
+      try{
+        console.log("stopArriba");
+        $scope.mediaArriba.stopRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'abajo':
+      try{
+        $scope.mediaAbajo.stopRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'izquierda':
+      try{
+        $scope.mediaIzquierda.stopRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'derecha':
+      try{
+        $scope.mediaDerecha.stopRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'acostadoArriba':
+      try{
+        $scope.mediaBocaArriba.stopRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      case 'acostadoAbajo':
+      try{
+        $scope.mediaBocaAbajo.stopRecord();
+      }catch(error){
+        console.log(error);
+      }
+      break;
+      default:
+      break;
+    } 
+  }
+*/
 /* TEST SONIDOS
   $scope.reproducir = function(idSonido){
     switch(idSonido){
