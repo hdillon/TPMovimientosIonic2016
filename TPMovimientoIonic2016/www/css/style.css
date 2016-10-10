@@ -37,7 +37,7 @@ button.miEstilo{
 
 ion-content{
 	background-color: green;
-	background: url('../img/interrogacion.jpg');
+	background: url('../img/ondas.jpg');
 	background-repeat: no-repeat;
     background-position: center;
     margin: auto;
@@ -50,11 +50,11 @@ ion-content{
 }
 
 .bar-stable.bar-header, div.tab-nav.tabs{
-	background-color:#B0E0E6;
+	background-color:#262B32 !important;
 }
 
 div.title.title-center.header-item, ion-header-bar, div.tab-nav.tabs i, div.tab-nav.tabs span{
-	color:black;
+	color:white;
 }
 
 .boton2{
@@ -80,9 +80,6 @@ text-decoration: none;
 text-shadow: 0 -1px 1px rgba(25, 123, 29, .7);
 }
 
-
-
-
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -101,4 +98,28 @@ text-shadow: 0 -1px 1px rgba(25, 123, 29, .7);
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+
+.item-complex .item-content { background-color: #262B32 !important; color:white; }
+
+form.lista{
+  background-color: #262B32 !important; color:white; 
+}
+
+label.lista{
+  background-color: #262B32 !important; color:white; 
+}
+
+span.lista{
+  background-color: #262B32 !important; color:white; 
+}
+
+input.lista{
+  background-color: #262B32 !important; color:white; 
+}
+
+h3.menutitle {
+  color:white;
+
 }

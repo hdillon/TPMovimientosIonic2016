@@ -340,7 +340,7 @@ angular.module('starter.controllers', [])
             console.log(error);
           }
         }
-
+        console.info("$scope.ultimoPlay: ", $scope.ultimoPlay);
         if($scope.Y > 6 && $scope.ultimoPlay != 'arriba'){
           try{
           $scope.mediaArriba.play(); // Android
